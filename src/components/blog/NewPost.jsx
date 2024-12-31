@@ -11,6 +11,7 @@ const NewPost = () => {
     <div>
         <Tiptap onEditorContentSave={handleEditorContentSave}/>
         <hr/>
+        {/* here we are passing the output of text editor */}
         <ShowPost content={htmlContent}/>
     </div>
   )

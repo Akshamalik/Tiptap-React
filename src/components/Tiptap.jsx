@@ -4,11 +4,18 @@ import {
   HighlightBox,
   highlightBoxStyles,
 } from "../extensions/nodes/HighlightBox/HighlightBox";
+import { CommentBox } from "../extensions/nodes/CommentBox/CommentBox";
 import { useEffect } from "react";
 import { AutoFormat } from "../extensions/AutoFormatExtension/AutoFormatExtension";
 import { PinkHighlight } from "../extensions/marks/PinkHighlight/PinkHighlight";
 
-const extensions = [HighlightBox, AutoFormat, PinkHighlight, StarterKit];
+const extensions = [
+  HighlightBox,
+  AutoFormat,
+  PinkHighlight,
+  StarterKit,
+  CommentBox,
+];
 
 const content = ``;
 
@@ -36,11 +43,14 @@ const Tiptap = ({ onEditorContentSave }) => {
 
   const buttonClass = (isActive) =>
     `p-2 rounded-md text-sm font-medium transition ${
-      isActive ? "bg-blue-500 text-white" : "bg-gray-300 text-gray-800 hover:bg-gray-400"
+      isActive
+        ? "bg-blue-500 text-white"
+        : "bg-gray-300 text-gray-800 hover:bg-gray-400"
     }`;
 
   return (
     <div className="m-8 space-y-4">
+      <h1 className="text-center font-bold text-3xl text-blue-600 pb-5">Tiptap - With Custom Extensions,Marks and Nodes</h1>
       <div className="flex flex-wrap bg-gray-200 p-4 gap-2 rounded-lg shadow-md">
         <button
           onClick={() => editor.chain().focus().toggleBold().run()}
@@ -90,15 +100,6 @@ const Tiptap = ({ onEditorContentSave }) => {
         >
           Paragraph
         </button>
-        {[1, 2, 3, 4, 5, 6].map((level) => (
-          <button
-            key={level}
-            onClick={() => editor.chain().focus().toggleHeading({ level }).run()}
-            className={buttonClass(editor.isActive("heading", { level }))}
-          >
-            H{level}
-          </button>
-        ))}
         <button
           onClick={() => editor.chain().focus().toggleBulletList().run()}
           className={buttonClass(editor.isActive("bulletList"))}
@@ -156,12 +157,12 @@ const Tiptap = ({ onEditorContentSave }) => {
           Highlight Box
         </button>
         <button
-          onClick={() => editor.chain().focus().setColor("#958DF1").run()}
-          className={buttonClass(
-            editor.isActive("textStyle", { color: "#958DF1" })
-          )}
+          onClick={() =>
+            editor.chain().focus().setCommentBox("Aksha", "Comment Start").run()
+          }
+          className="p-2 rounded-md text-sm font-medium bg-gray-300 text-gray-800 hover:bg-gray-400 transition"
         >
-          Purple
+          Add Comment
         </button>
       </div>
       <div className="border border-gray-300 rounded-lg shadow-inner overflow-hidden max-h-96">
